@@ -1,0 +1,76 @@
+import java.util.Scanner;
+ import java.util.Random;
+ 
+ class NumberGuess
+ {
+     public static void main(String[] args)
+     {
+         Scanner sc = new Scanner(System.in);
+         Random rn = new Random();
+         
+         final int MAX_ATTEMPTS = 7;
+         int roundsPlayed = 0;
+         int roundsWon = 0;
+         boolean playAgain;
+         
+         System.out.println("---Number Guessing Game---");
+         
+         do
+         {
+             int target = rn.nextInt(100) + 1;
+             int attempts = 0;
+             boolean guessed = false;
+             roundsPlayed++;
+             
+             System.out.println("\nThe system is thinking of a random number from 1 to 100.");
+             System.out.println("You have "+MAX_ATTEMPTS+" attempts to guess it.");
+             
+             while (attempts < MAX_ATTEMPTS)
+             {
+                 System.out.println("\nEnter your guess:");
+                 int guess;
+                 
+                 while (!sc.hasNextInt())
+                 {
+                     System.out.println("\nPlease enter a valid number: ");
+                     sc.next();
+                 }
+                 guess = sc.nextInt();
+                 attempts++;
+                 
+                 if (guess == target)
+                 {
+                     System.out.println("\n Correct!! You got the number in "+attempts+ " attempts.");
+                     guessed = true;
+                     roundsWon++;
+                     break;
+                 }
+                 
+                 else if (guess < target)
+                 {
+                     System.out.println("Too low.");
+                 }
+                 
+                 else 
+                 {
+                     System.out.println("Too high.");
+                 }
+             }
+             
+             if (!guessed)
+             {
+                 System.out.println("\nYou've run out of attempts. \nThe number was: "+target);
+             }
+              
+             System.out.println("\nDo you want to play again? (yes/no): ");
+             sc.nextLine();
+             String response = sc.nextLine().trim().toLowerCase();
+             playAgain = response.equals("yes") || response.equals("y");
+             
+         } while (playAgain);
+         
+         System.out.println("\n---Game Over---");
+         System.out.println("Rounds Played: "+roundsPlayed);
+         System.out.println("Rounds Won: "+roundsWon);
+     }
+ }
